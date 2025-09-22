@@ -20,7 +20,7 @@ A data analysis project using SQL and Excel. Extracted KPIs and business insight
 1. SQL – Data extraction and KPI calculation
 
 2. Excel – Pivot tables, charts, and dashboard design
-3. 
+
 ## Dataset
 
 Pizza Sales Dataset on Kaggle (https://www.kaggle.com/datasets/nextmillionaire/pizza-sales-dataset)
