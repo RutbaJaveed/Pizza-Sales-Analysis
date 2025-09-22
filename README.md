@@ -29,22 +29,27 @@ Pizza Sales Dataset on Kaggle (https://www.kaggle.com/datasets/nextmillionaire/p
 KPI Requirements:
 
 -- Total Revenue
+
 SELECT SUM(total_price) AS Total_Revenue 
 FROM pizza_sales;
 
 -- Average Order Value
+
 SELECT SUM(total_price)/COUNT(DISTINCT order_id) AS Average_Order_Value 
 FROM pizza_sales;
 
 -- Total Pizzas Sold
+
 SELECT SUM(quantity) AS Total_Pizzas_Sold 
 FROM pizza_sales;
 
 -- Total Orders
+
 SELECT COUNT(DISTINCT order_id) AS Total_Orders 
 FROM pizza_sales;
 
 -- Average Pizzas Per Order (Method 1)
+
 SELECT 
    CAST(
        CAST(SUM(quantity) AS DECIMAL(10,2)) /
@@ -53,27 +58,33 @@ SELECT
 FROM pizza_sales;
 
 -- Average Pizzas Per Order (Simplified Method 2)
+
 SELECT 
    CAST(SUM(quantity) * 1.0 / COUNT(DISTINCT order_id) AS DECIMAL(10,2)) 
    AS Avg_Pizzas_Per_Order
 FROM pizza_sales;
 
 Chart Requirements:
+
 -- View Dataset
+
 SELECT * FROM pizza_sales;
 
 -- Daily Trend of Orders
+
 SELECT DATENAME(DW, order_date) AS Order_Day, COUNT(DISTINCT order_id) AS Total_Orders
 FROM pizza_sales
 GROUP BY DATENAME(DW, order_date);
 
 -- Hourly Trend of Orders
+
 SELECT DATEPART(HOUR, order_time) AS Order_Hours, COUNT(DISTINCT order_id) AS Total_Orders
 FROM pizza_sales
 GROUP BY DATEPART(HOUR, order_time)
 ORDER BY Order_Hours;
 
 -- Percentage of Sales by Pizza Category
+
 SELECT 
     pizza_category, 
     SUM(total_price) AS total_sales,
@@ -82,6 +93,7 @@ FROM pizza_sales
 GROUP BY pizza_category;
 
 -- Percentage of Sales by Pizza Size
+
 SELECT 
     pizza_size, 
     SUM(total_price) AS total_sales,
@@ -90,17 +102,20 @@ FROM pizza_sales
 GROUP BY pizza_size;
 
 -- Total Pizzas Sold by Pizza Category
+
 SELECT pizza_category, SUM(quantity) AS total_pizzas_sold
 FROM pizza_sales
 GROUP BY pizza_category;
 
 -- Top 5 Best Sellers by Pizzas Sold
+
 SELECT TOP 5 pizza_name, SUM(quantity) AS pizzas_sold
 FROM pizza_sales
 GROUP BY pizza_name
 ORDER BY pizzas_sold DESC;
 
 -- Bottom 5 Sellers by Pizzas Sold
+
 SELECT TOP 5 pizza_name, SUM(quantity) AS pizzas_sold
 FROM pizza_sales
 GROUP BY pizza_name
