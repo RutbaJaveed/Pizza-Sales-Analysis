@@ -21,113 +21,63 @@ A data analysis project using SQL and Excel. Extracted KPIs and business insight
 
 2. Excel – Pivot tables, charts, and dashboard design
 
+3. Pivot Tables, Charts, and Slicers – for interactive reporting
+
 ## Dataset
 
 Pizza Sales Dataset on Kaggle (https://www.kaggle.com/datasets/nextmillionaire/pizza-sales-dataset)
 
-## SQL Queries
-KPI Requirements:
+## Key KPIs
 
--- Total Revenue
+Total Revenue: $817,860
 
-SELECT SUM(total_price) AS Total_Revenue 
-FROM pizza_sales;
+Average Order Value: $38.31
 
--- Average Order Value
+Total Pizzas Sold: 49,574
 
-SELECT SUM(total_price)/COUNT(DISTINCT order_id) AS Average_Order_Value 
-FROM pizza_sales;
+Total Orders: 21,350
 
--- Total Pizzas Sold
+Average Pizzas per Order: 2.32
 
-SELECT SUM(quantity) AS Total_Pizzas_Sold 
-FROM pizza_sales;
+## Insights
+🔹 Sales Trends
 
--- Total Orders
+Orders are highest on Fridays and Saturdays.
 
-SELECT COUNT(DISTINCT order_id) AS Total_Orders 
-FROM pizza_sales;
+Peak ordering times are 12–1 PM and 4–8 PM.
 
--- Average Pizzas Per Order (Method 1)
+🔹 Sales by Category & Size
 
-SELECT 
-   CAST(
-       CAST(SUM(quantity) AS DECIMAL(10,2)) /
-       CAST(COUNT(DISTINCT order_id) AS DECIMAL(10,2)) 
-   AS DECIMAL(10,2)) AS Avg_Pizzas_Per_Order
-FROM pizza_sales;
+Classic category contributes the maximum sales.
 
--- Average Pizzas Per Order (Simplified Method 2)
+Large size pizzas dominate sales with ~46% share.
 
-SELECT 
-   CAST(SUM(quantity) * 1.0 / COUNT(DISTINCT order_id) AS DECIMAL(10,2)) 
-   AS Avg_Pizzas_Per_Order
-FROM pizza_sales;
+🔹 Best & Worst Sellers
 
-Chart Requirements:
+Top Seller: Classic Deluxe Pizza (2,453 sold).
 
--- View Dataset
-
-SELECT * FROM pizza_sales;
-
--- Daily Trend of Orders
-
-SELECT DATENAME(DW, order_date) AS Order_Day, COUNT(DISTINCT order_id) AS Total_Orders
-FROM pizza_sales
-GROUP BY DATENAME(DW, order_date);
-
--- Hourly Trend of Orders
-
-SELECT DATEPART(HOUR, order_time) AS Order_Hours, COUNT(DISTINCT order_id) AS Total_Orders
-FROM pizza_sales
-GROUP BY DATEPART(HOUR, order_time)
-ORDER BY Order_Hours;
-
--- Percentage of Sales by Pizza Category
-
-SELECT 
-    pizza_category, 
-    SUM(total_price) AS total_sales,
-    SUM(total_price) * 100 / (SELECT SUM(total_price) FROM pizza_sales) AS sales_percentage 
-FROM pizza_sales
-GROUP BY pizza_category;
-
--- Percentage of Sales by Pizza Size
-
-SELECT 
-    pizza_size, 
-    SUM(total_price) AS total_sales,
-    ROUND(SUM(total_price) * 100 / (SELECT SUM(total_price) FROM pizza_sales),2) AS sales_percentage 
-FROM pizza_sales
-GROUP BY pizza_size;
-
--- Total Pizzas Sold by Pizza Category
-
-SELECT pizza_category, SUM(quantity) AS total_pizzas_sold
-FROM pizza_sales
-GROUP BY pizza_category;
-
--- Top 5 Best Sellers by Pizzas Sold
-
-SELECT TOP 5 pizza_name, SUM(quantity) AS pizzas_sold
-FROM pizza_sales
-GROUP BY pizza_name
-ORDER BY pizzas_sold DESC;
-
--- Bottom 5 Sellers by Pizzas Sold
-
-SELECT TOP 5 pizza_name, SUM(quantity) AS pizzas_sold
-FROM pizza_sales
-GROUP BY pizza_name
-ORDER BY pizzas_sold ASC;
+Lowest Seller: Brie Carre Pizza (490 sold).
 
 ## Project Workflow
 
-SQL Analysis → Extracted KPIs and generated sales insights.
+## SQL Analysis
 
-Excel Validation → Cross-checked SQL results in Excel.
+Wrote queries to calculate KPIs, sales by category/size, and trends.
 
-Dashboard Creation → Designed an interactive dashboard with KPIs, trends, category/size performance, and best/worst sellers.
+Verified results for accuracy.
+
+## Excel Dashboard
+
+Imported data and created pivot tables.
+
+Designed charts for daily/hourly trends, category/size distribution, and best/worst sellers.
+
+Built a dashboard with a timeline slicer for filtering.
+
+## Validation
+
+Compared Excel outputs with SQL query results to ensure correctness.
+
 
 ## Dashboard Preview
 
